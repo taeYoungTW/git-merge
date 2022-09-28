@@ -126,12 +126,12 @@ git merge --ff B-branch
         commit id: "B-3" tag: "B-branch"
 ```
 
+![](./images/no-ff_before.png)
+
 ```
 git checkout A-branch
 git merge --no-ff B-branch
 ```
-
-![](./images/no-ff_before.png)
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -172,12 +172,12 @@ git merge --no-ff B-branch
         commit id: "A-5" tag: "A-branch"
 ```
 
+![](./images/no-ff-over_before.png)
+
 ```
 git checkout A-branch
 git merge --no-ff B-branch
 ```
-
-![](./images/no-ff-over_before.png)
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
