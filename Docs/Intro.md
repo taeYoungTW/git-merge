@@ -9,3 +9,4 @@
 
 -   [Merge](./Merge.md)
 -   [Squash](./Squash.md)
+-   [Rebase](./Rebase.md)
