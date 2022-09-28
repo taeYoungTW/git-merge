@@ -20,11 +20,13 @@ Merge는 기본적인 병합 방식으로, 커밋의 관계에 따라 다르게 
 
 <br />
 
-### 2.1.1. 관계: fast-forward(--ff)
+### 2.1.1. fast-forward(--ff)
+
+#### 1) 포함 관계인 경우
 
 아래와 같이 B-3 커밋이 A-3 커밋의 히스토리 전체를 포함하고 있다.
 
--   `A-3 ⊃ B-3`
+-   `A-3 ⊂ B-3`
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -65,11 +67,61 @@ git merge B-branch
 ![](./images/ff_after.png)
 
 <br />
+
+#### 2) 포함 관계가 아닌 경우
+
+아래와 같이 포함 관계가 아님에도 `--ff` 옵션으로 진행했을 경우 `--no-ff`와 같이 병합 커밋을 생성한다.
+
+-   `A-3 ⊄ B-3`
+
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
+      gitGraph
+        commit id: "A-1"
+        commit id: "A-2"
+        commit id: "A-3"
+        branch B-branch
+        commit id: "B-1"
+        commit id: "B-2"
+        commit id: "B-3" tag: "B-branch"
+        checkout A-branch
+        commit id: "A-4"
+        commit id: "A-5" tag: "A-branch"
+```
+
+![](./images/ff-over_before.png)
+
+```
+git merge --ff B-branch
+```
+
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
+      gitGraph
+        commit id: "A-1"
+        commit id: "A-2"
+        commit id: "A-3"
+        branch B-branch
+        commit id: "B-1"
+        commit id: "B-2"
+        commit id: "B-3" tag: "B-branch"
+        checkout A-branch
+        commit id: "A-4"
+        commit id: "A-5"
+        merge B-branch tag: "A-branch"
+```
+
+![](./images/ff-over_after.png)
+
 <br />
 
-### 2.1.2. 관계: non-fast-forward(--no-ff)
+### 2.1.2. non-fast-forward(--no-ff)
 
-fast-forward 처럼 `A-3 ⊃ B-3`의 포함된 커밋 관계를 가지고 있는 경우 강제로 `--no-ff` 옵션을 주어 Merge하는 경우를 설명하고자 한다.
+#### 1) 포함 관계인 경우
+
+fast-forward 처럼 `A-3 ⊂ B-3`의 포함된 커밋 관계를 가지고 있는 경우
+
+-   **강제로 `--no-ff` 옵션을 주어 Merge하는 경우를 설명하고자 한다.**
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -80,7 +132,7 @@ fast-forward 처럼 `A-3 ⊃ B-3`의 포함된 커밋 관계를 가지고 있는
         branch B-branch
         commit id: "B-1"
         commit id: "B-2"
-        commit id: "B-3" tag: "B-branch (head)"
+        commit id: "B-3" tag: "B-branch"
 ```
 
 ```
@@ -101,9 +153,11 @@ git merge --no-ff B-branch
         branch B-branch
         commit id: "B-1"
         commit id: "B-2"
-        commit id: "B-3"
+        commit id: "B-3" tag: "B-branch"
         checkout A-branch
-        merge B-branch
+        merge B-branch  tag: "A-branch"
 ```
 
 ![](./images/no-ff_after.png)
+
+#### 2) 포함 관계가 아닌 경우
