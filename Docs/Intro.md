@@ -34,6 +34,8 @@ Merge는 기본적인 병합 방식으로, 커밋의 관계에 따라 다르게 
         commit id: "B-3" tag: "B-branch"
 ```
 
+![](./images/ff_before.png)
+
 ```
 git checkout A-branch
 git merge B-branch
@@ -55,6 +57,8 @@ git merge B-branch
         commit id: "B-3" tag: "A-branch | B-branch"
         checkout A-branch
 ```
+
+![](./images/ff_after.png)
 
 ### 2.1.2. 관계: non-fast-forward(--no-ff)
 
