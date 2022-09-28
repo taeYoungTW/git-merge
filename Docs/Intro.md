@@ -18,9 +18,13 @@ Merge는 기본적인 병합 방식으로, 커밋의 관계에 따라 다르게 
     -   병합하려는 커밋이, 병합되는 커밋에 포함되는 관계인 경우 ff로 동작
     -   병합하려는 커밋이, 병합되는 커밋에 포함되지 않는 관계인 경우 --no-ff로 동작
 
+<br />
+
 ### 2.1.1. 관계: fast-forward(--ff)
 
 아래와 같이 B-3 커밋이 A-3 커밋의 히스토리 전체를 포함하고 있다.
+
+-   `A-3 ⊃ B-3`
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -60,9 +64,12 @@ git merge B-branch
 
 ![](./images/ff_after.png)
 
+<br />
+<br />
+
 ### 2.1.2. 관계: non-fast-forward(--no-ff)
 
-아래와 같이
+fast-forward 처럼 `A-3 ⊃ B-3`의 포함된 커밋 관계를 가지고 있는 경우 강제로 `--no-ff` 옵션을 주어 Merge하는 경우를 설명하고자 한다.
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -78,8 +85,12 @@ git merge B-branch
 
 ```
 git checkout A-branch
-git merge B-branch
+git merge --no-ff B-branch
 ```
+
+![](./images/no-ff_before.png)
+
+아래와 같이 새로운 병합 커밋을 만든다.
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'A-branch'}} }%%
@@ -94,3 +105,5 @@ git merge B-branch
         checkout A-branch
         merge B-branch
 ```
+
+![](./images/no-ff_after.png)
