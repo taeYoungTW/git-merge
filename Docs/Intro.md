@@ -8,3 +8,4 @@
 병합을 하는 방법으로는 대표적으로 `Merge`, `Squash & Merge`, `Rebase & Merge`가 있다.
 
 -   [Merge](./Merge.md)
+-   [Squash](./Squash.md)
