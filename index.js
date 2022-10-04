@@ -1,4 +1,4 @@
 const aBranch = {
     name: 'A-Branch',
-    commit: ['A-1', 'A-2'],
+    commit: ['A-1', 'A-2', 'A-3'],
 };
